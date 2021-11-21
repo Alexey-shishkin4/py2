@@ -1,17 +1,16 @@
 import sys
 
 from random import randint
-from form import Ui_MainWindow
+from PyQt5 import uic
 from PyQt5.QtGui import QPainter, QColor
 from PyQt5.QtWidgets import QMainWindow, QApplication
 
-class MyWidget(QMainWindow, Ui_MainWindow):
+class MyWidget(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setupUi(self)
-
+        uic.loadUi('UI.ui', self)
         self.do_paint = False
-        self.setWindowTitle('Git и желтые окружности 2')
+        self.setWindowTitle('Git и желтые окружности')
         self.pushButton.clicked.connect(self.paint)
 
     def paintEvent(self, event):
@@ -26,8 +25,7 @@ class MyWidget(QMainWindow, Ui_MainWindow):
         self.repaint()
 
     def draw_ellipse(self, qp):
-        r, g, b = randint(0, 255), randint(0, 255), randint(0, 255)
-        qp.setBrush(QColor(r, g, b))
+        qp.setBrush(QColor(255, 255, 0))
         x, y = 175, 250
         r = randint(0, 300)
         qp.drawEllipse(x - (r / 2), y - (r / 2), r, r)
